@@ -1,13 +1,13 @@
-from django.urls import path
+from django.urls import path,include
 
+from rest_framework.routers import DefaultRouter
 
 from .views_auth import ProfileViewSet
 
-profile_list = ProfileViewSet.as_view({'get': 'list'})
-profile_detail = ProfileViewSet.as_view({'get': 'retrieve'})
+router = DefaultRouter()
+router.register(r'profiles',ProfileViewSet) #profiles is endpoint
 
 urlpatterns = [
-    path('profiles/', profile_list,name='profile-list'),
-    path('profiles/<int:pk>/', profile_detail, name='profile-detail'),
+   path('',include(router.urls))
 
 ]       
